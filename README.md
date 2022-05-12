@@ -9,7 +9,7 @@ yarn upgrade -> yarn install -> project최상위 directory에서 -> yarn start
 
 # 테스트 화면
 
-![testPage](./image/test_page.png)
+![testPage](./image/testpage.png)
 
 # 추가 설명
 서버 port: 5000
