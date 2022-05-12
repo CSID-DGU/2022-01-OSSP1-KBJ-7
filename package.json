@@ -1,4 +1,5 @@
 {
+  "private": true,
   "scripts": {
     "server": "cd server && nodemon server",
     "client": "cd client && yarn start",
