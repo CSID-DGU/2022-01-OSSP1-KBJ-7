@@ -41,7 +41,7 @@ export default function Album() {
         <Toolbar>
           <CameraIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
-            Album layout
+            Healthy Pleasure
           </Typography>
         </Toolbar>
       </AppBar>
@@ -62,12 +62,12 @@ export default function Album() {
               color="text.primary"
               gutterBottom
             >
-              Album layout
+              Healthy Pleasure Food
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Something short and leading about the collection below—its contents,
-              the creator, etc. Make it short and sweet, but not too short so folks
-              don&apos;t simply skip over it entirely.
+              건강관리, Healthy Pleasure Food로 해결하세요.
+              먹는 것만큼은 스트레스 받지 말고 관리할 수 있습니다.
+              본 사이트에서 제공하는 레시피를 통해 직접 요리할 수 있습니다. 
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -99,16 +99,15 @@ export default function Album() {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      음식 이름
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
+                      레시피 간단한 설명
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Button size="small">레시피</Button>
+                    <Button size="small">장바구니</Button>
                   </CardActions>
                 </Card>
               </Grid>
