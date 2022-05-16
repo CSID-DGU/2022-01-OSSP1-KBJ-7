@@ -44,6 +44,14 @@ export default function Album() {
             Healthy Pleasure
           </Typography>
         </Toolbar>
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            로그인
+          </Typography>
+          <Typography variant="h6" color="inherit" noWrap>
+            장바구니
+          </Typography>
+        </Toolbar>
       </AppBar>
       <main>
         {/* Hero unit */}

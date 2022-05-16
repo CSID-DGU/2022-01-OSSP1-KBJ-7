@@ -70,7 +70,7 @@ import { Table, Button } from "react-bootstrap";
 // export default App;
 
 // Material ui 설치 후 테스트
-import Main from './component/content'
+import Main from './view/MainPage'
 class App extends React.Component{
   render(){
     return (
