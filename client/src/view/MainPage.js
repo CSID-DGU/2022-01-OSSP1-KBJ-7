@@ -51,6 +51,9 @@ export default function MainPage() {
           <Typography variant="h6" color="inherit" noWrap>
             장바구니
           </Typography>
+           <Typography variant="h6" color="inherit" noWrap>
+            
+          </Typography>
         </Toolbar>
       </AppBar>
       <main>
