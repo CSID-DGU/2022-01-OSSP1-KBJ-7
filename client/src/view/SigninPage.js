@@ -60,10 +60,9 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              name="password"
+              name="id"
               label="아이디"
-              type="password"
-              id="name"
+              id="id"
             />  
             <TextField
               margin="normal"
@@ -85,7 +84,7 @@ export default function SignIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              회원가입
+              로그인
             </Button>
             <Grid container>
               <Grid item>
