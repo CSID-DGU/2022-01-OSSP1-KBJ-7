@@ -61,7 +61,7 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="이름"
+              label="아이디"
               type="password"
               id="name"
             />  
