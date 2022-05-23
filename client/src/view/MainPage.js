@@ -46,13 +46,13 @@ export default function MainPage() {
         </Toolbar>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            로그인
+            <Link to="./SigninPage.js" />로그인
           </Typography>
           <Typography variant="h6" color="inherit" noWrap>
-            장바구니
+           <Link to="./RegisterPage.js" /> 회원가입
           </Typography>
-           <Typography variant="h6" color="inherit" noWrap>
-            
+          <Typography variant="h6" color="inherit" noWrap>
+          <Link to="./CartPage.js" />장바구니
           </Typography>
         </Toolbar>
       </AppBar>
@@ -145,4 +145,5 @@ export default function MainPage() {
     </ThemeProvider>
   );
 }
+
 
