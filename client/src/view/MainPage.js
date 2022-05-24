@@ -58,13 +58,13 @@ export default function MainPage() {
         </Toolbar>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            <Link to="./SigninPage.js" />로그인
+            <a href="./SigninPage.js" />로그인
           </Typography>
           <Typography variant="h6" color="inherit" noWrap>
-           <Link to="./RegisterPage.js" /> 회원가입
+           <a href="./RegisterPage.js" /> 회원가입
           </Typography>
           <Typography variant="h6" color="inherit" noWrap>
-          <Link to="./CartPage.js" />장바구니
+          <a href="./CartPage.js" />장바구니
           </Typography>
         </Toolbar>
       </AppBar>
