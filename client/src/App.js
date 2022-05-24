@@ -3,6 +3,27 @@ import { useEffect, useState } from "react";
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button } from "react-bootstrap";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Main from "./view/MainPage"
+import Register from "./view/RegisterPage";
+import Signin from "./view/SigninPage";
+import Cart from "./view/CartPage";
+
+
+function App(){
+    return (
+      <div>
+        <BrowserRouter>
+          <Route path="/" exact component={Main} />
+          <Route path="/Register" component={Register} />
+          <Route path="/Signin" component={Signin} />
+          <Route path = "/Cart" component={Cart} />
+        </BrowserRouter>
+      </div>
+    );
+  }
+
+export default App;
 
 
 // class App extends Component {
@@ -70,16 +91,3 @@ import { Table, Button } from "react-bootstrap";
 // export default App;
 
 // Material ui 설치 후 테스트
-import Main from './component/content'
-class App extends React.Component{
-  render(){
-    return (
-      <div>
-        <Main/>
-      </div>
-    );
-  }
-}
-export default App;
-
-
