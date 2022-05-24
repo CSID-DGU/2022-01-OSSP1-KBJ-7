@@ -18,7 +18,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // 서버와 연동
 import axios from "axios";
-import {Component} from "react";
 
 import {useState, useEffect} from "react";
 
@@ -34,8 +33,6 @@ function Copyright() {
     </Typography>
   );
 }
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
