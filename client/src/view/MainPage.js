@@ -16,6 +16,12 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+// 서버와 연동
+import axios from "axios";
+import {Component} from "react";
+
+import {useState, useEffect} from "react";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -34,6 +40,16 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const theme = createTheme();
 
 export default function MainPage() {
+  const [foodList, setFoodList] = useState([]);
+
+    // 페이지 렌더링 후 가장 처음 호출되는 함수
+    // 음식 리스트 얻어오기
+    useEffect(()=>{
+      axios.get('/api/foodList')
+      .then(res => setFoodList(res.data))
+      .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
+    }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -94,8 +110,8 @@ export default function MainPage() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {foodList.map((food, index) => (
+              <Grid item key={food.id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -105,15 +121,20 @@ export default function MainPage() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image="https://source.unsplash.com/random"
-                    alt="random"
+                    image={food.image}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      음식 이름
+                      {/* 음식 이름 */}
+                      {food.name}
                     </Typography>
                     <Typography>
-                      레시피 간단한 설명
+                      {/* 레시피 간단한 설명 */}
+                      재료: {food.ingredient}
+                      <br></br>
+                      <br></br>
+                      칼로리: {food.kcal}
+                      영양 정보: 탄수화물 {food.carbohydrate}g, 단백질 {food.protein}g, 지방 {food.fat}g
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -145,5 +166,3 @@ export default function MainPage() {
     </ThemeProvider>
   );
 }
-
-
