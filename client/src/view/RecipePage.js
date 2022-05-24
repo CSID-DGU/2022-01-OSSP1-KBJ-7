@@ -23,19 +23,14 @@ export default function RecipePage () {
     <>
       <Nav/>
       <br></br>
-      <h2 align="center">레시피</h2>
+      <h2 align="center">{foodList[0].name}</h2>
 
       <div className="post-view-wrapper">
         {
           foodList[0] ? (
             <>
               <div className="post-view-row">
-                <label>음식 번호</label>
-                <label>{foodList[0].id}번</label>
-              </div>
-              <div className="post-view-row">
-                <label>음식 이름</label>
-                <label>{foodList[0].name}</label>
+                <img className="foodimg" src={foodList[0].image} />
               </div>
               <div className="post-view-row">
                 <label>칼로리</label>

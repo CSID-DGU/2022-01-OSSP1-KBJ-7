@@ -2,7 +2,11 @@
     width: 60%;
     margin: 0 auto;
   }
-  
+
+.foodimg {
+    display: block; 
+    margin: 0px auto;
+}
   
   .post-view-row {
     margin: 10px 0;
