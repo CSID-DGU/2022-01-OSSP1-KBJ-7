@@ -17,9 +17,8 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // 서버와 연동
-import axios from "axios";
-
-import {useState, useEffect} from "react";
+import axios from 'axios';
+import {useState, useEffect} from 'react';
 
 function Copyright() {
   return (
