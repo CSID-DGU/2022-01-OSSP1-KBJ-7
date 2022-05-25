@@ -31,13 +31,13 @@ export default function Nav() {
             </Toolbar>
             <Toolbar>
               <Typography variant="h6" color="inherit" noWrap>
-              <Link to="./SigninPage.js" />로그인{"   "}
+              <Link href='/Signin'><button>로그인</button></Link>
               </Typography>
               <Typography variant="h6" color="inherit" noWrap>
-              <Link to="./RegisterPage" />회원가입{"   "}
+              <Link href='/Register'><button>회원가입</button></Link>
               </Typography>
               <Typography variant="h6" color="inherit" noWrap>
-              <Link to="./CartPage" />장바구니{"   "}
+              <Link href='/Cart'><button>장바구니</button></Link> 
               </Typography>
             </Toolbar>
           </AppBar>
