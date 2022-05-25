@@ -8,7 +8,7 @@ import MainPage from "./view/MainPage"
 import SignUp from "./view/RegisterPage";
 import SignIn from "./view/SigninPage";
 import CartPage from "./view/CartPage";
-import RecipePage from "./view/RecipePage"
+import Recipe from "./view/RecipePage";
 
 
 function App(){
@@ -20,7 +20,7 @@ function App(){
             <Route path="/Register" element={<SignUp />} > </Route>
             <Route path="/Signin" element={<SignIn />} > </Route>
             <Route path = "/Cart" element={<CartPage />} > </Route>
-            <Route path = "/Recipe" element={<RecipePage />} > </Route>
+            <Route path = "/Recipe/:id" element={<Recipe />} > </Route>
           </Routes>
         </BrowserRouter>
       </div>
@@ -95,6 +95,3 @@ export default App;
 // export default App;
 
 // Material ui 설치 후 테스트
-
-
-

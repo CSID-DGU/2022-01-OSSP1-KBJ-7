@@ -13,7 +13,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
+//import Link from '@mui/material/Link';
+import {Link} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // 서버와 연동
@@ -24,7 +25,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" to="https://mui.com/">
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -43,7 +44,7 @@ export default function MainPage() {
     useEffect(()=>{
       axios.get('/api/foodList')
       .then(res => setFoodList(res.data))
-      .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
+      .then(console.log(foodList)) //  받아온 음식리스트 출력해보기
     }, [])
 
   return (
@@ -58,9 +59,9 @@ export default function MainPage() {
         </Toolbar>
         <Toolbar>
           {/* 링크 수정 */}
-          <Link href='/Signin'><button>로그인</button></Link>
-          <Link href='/Register'><button>회원가입</button></Link>       
-          <Link href='/Cart'><button>장바구니</button></Link>        
+          <Link to='/Signin'><button>로그인</button></Link>
+          <Link to='/Register'><button>회원가입</button></Link>       
+          <Link to='/Cart'><button>장바구니</button></Link>        
         </Toolbar>
       </AppBar>
       <main>
@@ -129,8 +130,8 @@ export default function MainPage() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Link href='/Recipe'><button>레시피</button></Link>        
-                    <Link href='/Cart'><button>장바구니</button></Link>        
+                    <Link to={`/Recipe/${food.id}`}><Button size="small">레시피</Button></Link>
+                    <Button size="small">장바구니</Button>
                   </CardActions>
                 </Card>
               </Grid>
