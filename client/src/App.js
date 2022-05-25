@@ -8,6 +8,7 @@ import MainPage from "./view/MainPage"
 import SignUp from "./view/RegisterPage";
 import SignIn from "./view/SigninPage";
 import CartPage from "./view/CartPage";
+import RecipePage from "./view/RecipePage"
 
 
 function App(){

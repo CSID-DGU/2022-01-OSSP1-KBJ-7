@@ -1,7 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import '../component/RecipeLayout.css'
 import Nav from '../component/Nav'
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 
 // 서버와 연동
 import axios from 'axios';
@@ -59,8 +60,8 @@ export default function RecipePage () {
             </>
           ) : '해당 게시글을 찾을 수 없습니다.'
         }
-        <Button variant="contained">메인으로</Button><br></br><br></br>
-        <Button variant="outlined">장바구니</Button>
+        <Link href='/'><Button variant='contained'>메인으로</Button></Link><br></br><br></br>     
+        <Link href='/Cart'><Button variant='outlined'>장바구니</Button></Link> 
       </div>
     </>
   );
