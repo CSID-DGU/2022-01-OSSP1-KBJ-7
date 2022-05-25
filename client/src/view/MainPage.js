@@ -13,14 +13,19 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
+//import Link from '@mui/material/Link';
+import {Link} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+// 서버와 연동
+import axios from 'axios';
+import {useState, useEffect} from 'react';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" to="https://mui.com/">
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -29,11 +34,19 @@ function Copyright() {
   );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 const theme = createTheme();
 
-export default function Album() {
+export default function MainPage() {
+  const [foodList, setFoodList] = useState([]);
+
+    // 페이지 렌더링 후 가장 처음 호출되는 함수
+    // 음식 리스트 얻어오기
+    useEffect(()=>{
+      axios.get('/api/foodList')
+      .then(res => setFoodList(res.data))
+      .then(console.log(foodList)) //  받아온 음식리스트 출력해보기
+    }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -41,8 +54,14 @@ export default function Album() {
         <Toolbar>
           <CameraIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
-            Album layout
+            Healthy Pleasure
           </Typography>
+        </Toolbar>
+        <Toolbar>
+          {/* 링크 수정 */}
+          <Link to='/Signin'><button>로그인</button></Link>
+          <Link to='/Register'><button>회원가입</button></Link>       
+          <Link to='/Cart'><button>장바구니</button></Link>        
         </Toolbar>
       </AppBar>
       <main>
@@ -62,12 +81,12 @@ export default function Album() {
               color="text.primary"
               gutterBottom
             >
-              Album layout
+              Healthy Pleasure Food
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Something short and leading about the collection below—its contents,
-              the creator, etc. Make it short and sweet, but not too short so folks
-              don&apos;t simply skip over it entirely.
+              건강관리, Healthy Pleasure Food로 해결하세요.
+              먹는 것만큼은 스트레스 받지 말고 관리할 수 있습니다.
+              본 사이트에서 제공하는 레시피를 통해 직접 요리할 수 있습니다. 
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -83,8 +102,8 @@ export default function Album() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {foodList.map((food, index) => (
+              <Grid item key={food.id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -94,21 +113,25 @@ export default function Album() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image="https://source.unsplash.com/random"
-                    alt="random"
+                    image={food.image}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      {/* 음식 이름 */}
+                      {food.name}
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
+                      {/* 레시피 간단한 설명 */}
+                      재료: {food.ingredient}
+                      <br></br>
+                      <br></br>
+                      칼로리: {food.kcal}
+                      영양 정보: 탄수화물 {food.carbohydrate}g, 단백질 {food.protein}g, 지방 {food.fat}g
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Link to={`/Recipe/${food.id}`}><Button size="small">레시피</Button></Link>
+                    <Button size="small">장바구니</Button>
                   </CardActions>
                 </Card>
               </Grid>
