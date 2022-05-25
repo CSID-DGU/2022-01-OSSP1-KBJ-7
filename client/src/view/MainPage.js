@@ -129,8 +129,8 @@ export default function MainPage() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">레시피</Button>
-                    <Button size="small">장바구니</Button>
+                    <Link href='/Cart'><button>레시피</button></Link>        
+                    <Link href='/Recipe'><button>장바구니</button></Link>        
                   </CardActions>
                 </Card>
               </Grid>
