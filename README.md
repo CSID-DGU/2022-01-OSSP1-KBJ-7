@@ -7,6 +7,8 @@ yarn upgrade -> yarn install -> project최상위 directory에서 -> yarn start
 
 혹은 node_module 폴더(client폴더에 있는 것도 함께)  삭제 후 yarn install
 
+혹은 npm install concurrently --save --legacy-peer-deps 후 yarn start
+
 # 테스트 화면
 
 ![testPage](./image/testpage.png)
