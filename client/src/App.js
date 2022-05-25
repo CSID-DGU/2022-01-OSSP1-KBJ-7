@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button } from "react-bootstrap";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Routes } from 'react-router-dom';
 import MainPage from "./view/MainPage"
 import SignUp from "./view/RegisterPage";
 import SignIn from "./view/SigninPage";
@@ -14,10 +14,12 @@ function App(){
     return (
       <div>
         <BrowserRouter>
-          <Route path="/" exact component={MainPage} />
-          <Route path="/Register" component={SignUp} />
-          <Route path="/Signin" component={SignIn} />
-          <Route path = "/Cart" component={CartPage} />
+          <Routes>
+            <Route path="/" element={<MainPage />} > </Route>
+            <Route path="/Register" element={<SignUp />} > </Route>
+            <Route path="/Signin" element={<SignIn />} > </Route>
+            <Route path = "/Cart" element={<CartPage />} > </Route>
+          </Routes>
         </BrowserRouter>
       </div>
     );
