@@ -3,25 +3,29 @@ import { useEffect, useState } from "react";
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button } from "react-bootstrap";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Main from "./view/MainPage"
-import Register from "./view/RegisterPage";
-import Signin from "./view/SigninPage";
-import Cart from "./view/CartPage";
+import { BrowserRouter, Route, Switch, Routes } from 'react-router-dom';
+import MainPage from "./view/MainPage"
+import SignUp from "./view/RegisterPage";
+import SignIn from "./view/SigninPage";
+import CartPage from "./view/CartPage";
+import Recipe from "./view/RecipePage";
 
 
 function App(){
-    return (
-      <div>
-        <BrowserRouter>
-          <Route path="/" exact component={Main} />
-          <Route path="/Register" component={Register} />
-          <Route path="/Signin" component={Signin} />
-          <Route path = "/Cart" component={Cart} />
-        </BrowserRouter>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} > </Route>
+          <Route path="/Register" element={<SignUp />} > </Route>
+          <Route path="/Signin" element={<SignIn />} > </Route>
+          <Route path = "/Cart" element={<CartPage />} > </Route>
+          <Route path = "/Recipe/:id" element={<Recipe />} > </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
 
 export default App;
 
