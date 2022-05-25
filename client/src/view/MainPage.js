@@ -57,15 +57,15 @@ export default function MainPage() {
           </Typography>
         </Toolbar>
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            <a href="./SigninPage.js" />로그인
-          </Typography>
-          <Typography variant="h6" color="inherit" noWrap>
-           <a href="./RegisterPage.js" /> 회원가입
-          </Typography>
-          <Typography variant="h6" color="inherit" noWrap>
-          <a href="./CartPage.js" />장바구니
-          </Typography>
+          <Link to="/SigninPage">
+          <button>로그인</button>         
+        </Link>
+        <Link to="/RegisterPage">
+          <button>회원가입</button>         
+        </Link>
+        <Link to="/Cart">
+         <button>장바구니</button>
+        </Link>
         </Toolbar>
       </AppBar>
       <main>
