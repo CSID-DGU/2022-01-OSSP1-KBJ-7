@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import {useState, useEffect, useLayoutEffect} from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function RecipePage () {
   const [foodList, setFoodList] = useState([]);
@@ -56,7 +57,7 @@ export default function RecipePage () {
               </div>
             </>
           ) : '해당 게시글을 찾을 수 없습니다.'}
-          <Button variant="contained">메인으로</Button><br></br><br></br>
+          <Link to='/'><Button variant="contained">메인으로</Button></Link><br></br><br></br>
           <Button variant="outlined">장바구니</Button>
         </div></>
       ))}
