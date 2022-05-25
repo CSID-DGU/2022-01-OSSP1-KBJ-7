@@ -28,7 +28,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SigninPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -89,7 +89,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="./loginform.js" variant="body2">
+                <Link href='/Register' variant='body2'>    
                   {"회원가입이 안 되어 있으신가요?"}
                 </Link>
               </Grid>
