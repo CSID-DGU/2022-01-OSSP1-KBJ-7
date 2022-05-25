@@ -57,15 +57,10 @@ export default function MainPage() {
           </Typography>
         </Toolbar>
         <Toolbar>
-          <Link to="/SigninPage">
-          <button>로그인</button>         
-        </Link>
-        <Link to="/RegisterPage">
-          <button>회원가입</button>         
-        </Link>
-        <Link to="/Cart">
-         <button>장바구니</button>
-        </Link>
+          {/* 링크 수정 */}
+          <Link href='/Signin'><button>로그인</button></Link>
+          <Link href='/Register'><button>회원가입</button></Link>       
+          <Link href='/Cart'><button>장바구니</button></Link>        
         </Toolbar>
       </AppBar>
       <main>
