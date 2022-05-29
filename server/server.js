@@ -30,6 +30,23 @@ app.get('/api/foodList', (req, res) => {
     })
 })
 
+app.get('/api/userCart/:id', (req, res) => {
+    const id = req.params.id;
+
+    // db에서 food 목록 가져오고 front로 전송
+   
+    // user의 id를 이용해서 DB의 user_item table에서 데이터를 가져온다.
+    db.query(`select * from user_item where userid='${id}'`, (err, data) => {
+        if(!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
 const port = 5000; // server port
 app.listen(port, () => {
     console.log(`Server On: ${port}`);

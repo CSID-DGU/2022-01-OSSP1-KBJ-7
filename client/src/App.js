@@ -19,7 +19,7 @@ function App(){
           <Route path="/" element={<MainPage />} > </Route>
           <Route path="/Register" element={<SignUp />} > </Route>
           <Route path="/Signin" element={<SignIn />} > </Route>
-          <Route path = "/Cart" element={<CartPage />} > </Route>
+          <Route path = "/Cart/:id" element={<CartPage />} > </Route>
           <Route path = "/Recipe/:id" element={<Recipe />} > </Route>
         </Routes>
       </BrowserRouter>
