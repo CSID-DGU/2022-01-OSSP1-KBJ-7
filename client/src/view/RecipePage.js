@@ -58,7 +58,7 @@ export default function RecipePage () {
             </>
           ) : '해당 게시글을 찾을 수 없습니다.'}
           <Link to='/'><Button variant="contained">메인으로</Button></Link><br></br><br></br>
-          <Button variant="outlined">장바구니</Button>
+          <Link to='/Cart/kaka5'><button>장바구니</button></Link>
         </div></>
       ))}
     </div>
