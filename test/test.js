@@ -78,9 +78,10 @@ const food_characteristic = [
 // 음식 순서는 DB의 food table의 id를 따름
 // 10개의 임시 데이터
 const user_item = [
+//   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5
     [1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+    [1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
     [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
     [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
@@ -88,6 +89,7 @@ const user_item = [
     [1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0],
     [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
     [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
 
 // 온톨로지 생성(비슷한 목적으로 파생된 음식 묶음)
@@ -115,23 +117,32 @@ for(let i = 0; i < food_characteristic.length; i++) {
     }
 }
 
-console.log("lowCarbohydrate>>")
-console.log(lowCarbohydrate);
+// console.log("lowCarbohydrate>>")
+// console.log(lowCarbohydrate);
 
-console.log("lowSugar>>")
-console.log(lowSugar);
+// console.log("lowSugar>>")
+// console.log(lowSugar);
 
-console.log("lowFat>>")
-console.log(lowFat);
+// console.log("lowFat>>")
+// console.log(lowFat);
 
-console.log("highProtein>>")
-console.log(highProtein);
+// console.log("highProtein>>")
+// console.log(highProtein);
 
-console.log("noMeat>>")
-console.log(noMeat);
+// console.log("noMeat>>")
+// console.log(noMeat);
+
+
 
 // 협업 필터링 적용
-// 유저0이 담은 음식>> 콩고기 볶음, 스트로베리 아몬드 키토 와플, 두부 마요네즈, 검은콩 곤약 조림, 귀리밥, 두부면 토마토 파스타, 키토 김밥, 두부 유부초밥 
-const text = recommend.cFilter(user_item, 0);
+// 반복 횟수 정해서 추천하는 항목 조절 할 수 있음
+let result = []
+for (let i = 0; i < 3; i++) {
+    let temp = recommend.cFilter(user_item, 2)[0];
+    result.push(temp)
+
+    // 추천했던 항목을 다시 추천하는 것을 방지하기 위해 한번 추천한 항목은 1로 바꿔줌
+    user_item[2][temp] = 1;
+}
 console.log("recommend>>")
-console.log(text)
+console.log(result)
