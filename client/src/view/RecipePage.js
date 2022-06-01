@@ -59,7 +59,7 @@ export default function RecipePage () {
           {foodList[0] ? (
             <>
               <div className="post-view-row">
-                <img className="foodimge" src={food.image} />
+                <img className="foodimg" src={food.image} />
               </div>
               <div className="post-view-row">
                 <label>칼로리</label>
