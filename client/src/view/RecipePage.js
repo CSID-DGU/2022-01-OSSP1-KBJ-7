@@ -1,7 +1,14 @@
 import React from 'react';
 import '../component/RecipeLayout.css'
-import Nav from '../component/Nav'
 import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import CameraIcon from '@mui/icons-material/PhotoCamera';
+import CssBaseline from '@mui/material/CssBaseline';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 // 서버와 연동
 import axios from 'axios';
@@ -22,10 +29,31 @@ export default function RecipePage () {
       .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
     }, [])
 
+    const theme = createTheme();
   return (
     <div>
       {foodList.filter(food => food.id === id).map(food => (
-        <><Nav /><br></br><h2 align="center">{food.name}</h2>
+        <>
+        
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <AppBar position="relative">
+            <Toolbar>
+              <CameraIcon sx={{ mr: 2 }} />
+              <Typography variant="h6" color="inherit" noWrap>
+                Healthy Pleasure
+              </Typography>
+            </Toolbar>
+            <Toolbar>
+              {/* 링크 수정 */}
+              <Link to='/'><button>메인으로</button></Link>
+              <Link to='/Signin'><button>로그인</button></Link>
+              <Link to='/Register'><button>회원가입</button></Link>       
+              <Link to='/Cart/kaka5'><button>장바구니</button></Link> {/* kaka5 유저에 대해 테스트 */}
+            </Toolbar>
+          </AppBar>
+        </ThemeProvider>
+        <br></br><h2 align="center">{food.name}</h2>
         
         <div className="post-view-wrapper">
           {foodList[0] ? (

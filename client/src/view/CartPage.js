@@ -82,6 +82,7 @@ function CartPage() {
           </Typography>
         </Toolbar>
         <Toolbar>
+          <Link to='/'><button>메인으로</button></Link>
           <Link to='/Signin'><button>로그인</button></Link>
           <Link to='/Register'><button>회원가입</button></Link>       
           <Link to='/Cart/kaka5'><button>장바구니</button></Link> {/* kaka5 유저에 대해 테스트 */}
