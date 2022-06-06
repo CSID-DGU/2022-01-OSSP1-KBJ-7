@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import '../component/Link_line.css'
 //import Link from '@mui/material/Link';
 import {Link} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -61,9 +62,9 @@ export default function MainPage() {
         </Toolbar>
         <Toolbar>
           {/* 링크 수정 */}
-          <Link to='/Signin'><button>로그인</button></Link>
-          <Link to='/Register'><button>회원가입</button></Link>       
-          <Link to='/Cart/kaka5'><button>장바구니</button></Link> {/* kaka5 유저에 대해 테스트 */}
+          <Link to='/Signin'><Button variant='contained'>로그인</Button></Link>
+          <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>       
+          <Link to='/Cart/kaka5'><Button variant='contained'>장바구니</Button></Link> {/* kaka5 유저에 대해 테스트 */}
         </Toolbar>
       </AppBar>
       <main>
@@ -96,8 +97,6 @@ export default function MainPage() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
             </Stack>
           </Container>
         </Box>
@@ -132,8 +131,8 @@ export default function MainPage() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Link to={`/Recipe/${food.id}`}><Button size="small">레시피</Button></Link>
-                    <Button size="small">장바구니</Button>
+                    <Link to={`/Recipe/${food.id}`}><Button variant="contained">레시피</Button></Link>
+                    <Link to={`/Cart/${food.id}`}><Button variant="outlined">장바구니</Button></Link>
                   </CardActions>
                 </Card>
               </Grid>
@@ -144,7 +143,7 @@ export default function MainPage() {
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          Healthy Pleasure
         </Typography>
         <Typography
           variant="subtitle1"
@@ -152,7 +151,7 @@ export default function MainPage() {
           color="text.secondary"
           component="p"
         >
-          Something here to give the footer a purpose!
+          행복한 식사 시간을 즐기세요.
         </Typography>
         <Copyright />
       </Box>
