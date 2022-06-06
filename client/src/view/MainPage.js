@@ -42,9 +42,11 @@ export default function MainPage() {
     // 페이지 렌더링 후 가장 처음 호출되는 함수
     // 음식 리스트 얻어오기
     useEffect(()=>{
-      axios.get('/api/foodList')
-      .then(res => setFoodList(res.data))
-      .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
+      if(foodList.length === 0) {
+        axios.get('/api/foodList')
+        .then(res => setFoodList(res.data))
+        .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
+      }
     }, [])
 
   return (
