@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import CameraIcon from '@mui/icons-material/PhotoCamera';
 import CssBaseline from '@mui/material/CssBaseline';
+import '../component/Link_line.css'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -46,10 +47,10 @@ export default function RecipePage () {
             </Toolbar>
             <Toolbar>
               {/* 링크 수정 */}
-              <Link to='/'><button>메인으로</button></Link>
-              <Link to='/Signin'><button>로그인</button></Link>
-              <Link to='/Register'><button>회원가입</button></Link>       
-              <Link to='/Cart/kaka5'><button>장바구니</button></Link> {/* kaka5 유저에 대해 테스트 */}
+              <Link to='/'><Button variant='contained'>메인으로</Button></Link>
+              <Link to='/Signin'><Button variant='contained'>로그인</Button></Link>
+              <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>       
+              <Link to='/Cart/kaka5'><Button variant='contained'>장바구니</Button></Link> {/* kaka5 유저에 대해 테스트 */}
             </Toolbar>
           </AppBar>
         </ThemeProvider>
@@ -85,8 +86,8 @@ export default function RecipePage () {
               </div>
             </>
           ) : '해당 게시글을 찾을 수 없습니다.'}
-          <Link to='/'><Button variant="contained">메인으로</Button></Link><br></br><br></br>
-          <Link to='/Cart/kaka5'><button>장바구니</button></Link>
+          <Link to='/'><Button variant="contained">메인으로</Button></Link>
+          <Link to='/Cart/kaka5'><Button variant="outlined">장바구니</Button></Link>
         </div></>
       ))}
     </div>

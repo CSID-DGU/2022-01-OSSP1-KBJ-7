@@ -12,7 +12,9 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-//import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
+import '../component/Link_line.css'
+
 import {Link} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from 'styled-components';
@@ -23,15 +25,15 @@ import { useState, useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const theme = createTheme();
-const Button = styled.button`
-  background-color: black;
-  color: white;
-  font-size: 20px;
-  padding: 8px 20px;
-  border-radius: 5px;
-  margin: 5px 0px;
-  cursor: pointer;
-`;
+// const Button = styled.button`
+//   background-color: black;
+//   color: white;
+//   font-size: 20px;
+//   padding: 8px 20px;
+//   border-radius: 5px;
+//   margin: 5px 0px;
+//   cursor: pointer;
+// `;
 
 function CartPage() {
     const [Cart, setCart] = useState([]);
@@ -82,10 +84,10 @@ function CartPage() {
           </Typography>
         </Toolbar>
         <Toolbar>
-          <Link to='/'><button>메인으로</button></Link>
-          <Link to='/Signin'><button>로그인</button></Link>
-          <Link to='/Register'><button>회원가입</button></Link>       
-          <Link to='/Cart/kaka5'><button>장바구니</button></Link> {/* kaka5 유저에 대해 테스트 */}
+          <Link to='/'><Button variant='contained'>메인으로</Button></Link>
+          <Link to='/Signin'><Button variant='contained'>로그인</Button></Link>
+          <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>       
+          <Link to='/Cart/kaka5'><Button variant='contained'>장바구니</Button></Link> {/* kaka5 유저에 대해 테스트 */}
         </Toolbar>
       </AppBar>
         <div>
@@ -132,7 +134,7 @@ function CartPage() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">삭제</Button>
+                    <Button variant='outlined'>삭제</Button>
                   </CardActions>
                 </Card>
               </Grid>
