@@ -44,7 +44,7 @@ function CartPage() {
     const [recommendList, setRecommendList] = useState([]); // 추천된 아이템(음식)을 모은 배열
     const params = useParams();
     const id = (params.id);
-    
+    const [start, setStart] = useState(1); // 시작할때만 정보 얻어오도록 한다. (속도 향상) 나중에 commit
     // user id는 kaka5, crete91, ... 등등 DB의 user_item table을 확인해 알 수 있다.
     // user id를 parameter로 얻어와 해당 id에 맞는 유저가 담은 음식 데이터를 가져옴
 
@@ -53,7 +53,7 @@ function CartPage() {
     // ex) kaka5의 경우 1, 3번 음식이 1이니까 1, 3번 음식 나타내기
     // 음식 name, ingredient, kcal, 영양
     useEffect(() => {
-      
+      if(start) {
         axios.get(`/api/userCart/${id}`)
         .then(res => {
             setCart(res.data);
@@ -94,12 +94,12 @@ function CartPage() {
               userList[userIndex][item] = 1;
             }
             console.log(recommendList);
-            
+            setStart(0);
           }
         })
         //.then(console.log('repeat'));
       }    
-    );
+    });
     const FoodId = foodList.map((food, id) => food.id); //카드 배열 위해 id 추가
     const FoodImage = foodList.map((food, id) => food.image);
     const FoodName = foodList.map((food, id) => food.name);
