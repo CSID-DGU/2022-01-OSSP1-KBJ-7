@@ -24,6 +24,8 @@ import axios from 'axios';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import recommend from 'collaborative-filter';
+
 const theme = createTheme();
 // const Button = styled.button`
 //   background-color: black;
@@ -39,8 +41,12 @@ function CartPage() {
     const [Cart, setCart] = useState([]);
     const [CartList, setCartList] = useState([]);
     const [foodList, setFoodList] = useState([]);
+    const [user, setUser] = useState([]);
+    const [userList, setUserList] = useState([]);
+    const [recommendList, setRecommendList] = useState([]); // 추천된 아이템(음식)을 모은 배열
     const params = useParams();
     const id = (params.id);
+    const [start, setStart] = useState(1); // 시작할때만 정보 얻어오도록 한다. (속도 향상) 나중에 commit
     // user id는 kaka5, crete91, ... 등등 DB의 user_item table을 확인해 알 수 있다.
     // user id를 parameter로 얻어와 해당 id에 맞는 유저가 담은 음식 데이터를 가져옴
 
@@ -49,20 +55,52 @@ function CartPage() {
     // ex) kaka5의 경우 1, 3번 음식이 1이니까 1, 3번 음식 나타내기
     // 음식 name, ingredient, kcal, 영양
     useEffect(() => {
+      if(start) {
         axios.get(`/api/userCart/${id}`)
-            .then(res => {
-                setCart(res.data);
-                console.log(Cart[0]);
-                if (Cart.length !== 0) // Cart배열이 구성되어야 작동해야함
-                    setCartList(Object.values(Cart[0]));
-                console.log(CartList);
-                // 추천 시스템을 적용하기 위한 배열 출력
-                // ex) ['kaka5', 1, 0, 0, 0, 0, ...]
-            })
+        .then(res => {
+            setCart(res.data);
+            //console.log(Cart[0]);
+            if (Cart.length !== 0) // Cart배열이 구성되어야 작동해야함
+                setCartList(Object.values(Cart[0]));
+            //console.log(CartList);
+            // 추천 시스템을 적용하기 위한 배열 출력
+            // ex) ['kaka5', 1, 0, 0, 0, 0, ...]
+        })
         axios.get('/api/foodList')
-            .then(res => setFoodList(res.data))
-            .then(console.log(foodList))
+        .then(res => setFoodList(res.data))
+          //.then(console.log(foodList))
+        axios.get('/api/userList')
+        .then(res => {
+          setUser(res.data);
 
+          if(user.length !== 0 && userList.length === 0) {
+            // 사용자/아이템 배열 구축
+            // userList = ['username', 1, 0, ...]
+            user.map((user, id) => userList.push(Object.values(user)))
+
+            // 추천 대상이 되는 유저 index구함
+            let userIndex = 0;
+            for(let i = 0; i < userList.length; i++) {
+              if(id == userList[i][0]) userIndex = i;
+            }
+            
+            // 사용자 이름을 제외한 배열 생성(0, 1만 존재)
+            for(let i = 0; i < userList.length; i++) {
+              userList[i] = userList[i].slice(1);
+            }
+            
+            // 5개의 음식 추천(5번 반복문 반복)
+            for(let i = 0; i < 5; i++) {
+              let item = recommend.cFilter(userList, userIndex)[0];
+              recommendList.push(item);
+              userList[userIndex][item] = 1;
+            }
+            console.log(recommendList);
+            setStart(0);
+          }
+        })
+        //.then(console.log('repeat'));
+      }    
     });
     const FoodId = foodList.map((food, id) => food.id); //카드 배열 위해 id 추가
     const FoodImage = foodList.map((food, id) => food.image);
@@ -92,14 +130,6 @@ function CartPage() {
       </AppBar>
         <div>
             <br></br>
-            {/* {Cart.map((food, index) => (
-        // 곤약 떡볶이를 담았는지를 출력해보기
-        <div>
-          <h2>곤약 떡볶이를 담았는가?</h2>
-          <h2 key={index}>{food.곤약_떡볶이}</h2> 
-        </div>
-      ))} */}
-
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
@@ -141,7 +171,10 @@ function CartPage() {
              :null ))}
           </Grid>
         </Container>
-        
+        {/* 추천된 음식 출력 */}
+        {recommendList.map((food, id) => (
+          <h1 key={id}>{foodList[food].name}</h1>
+        ))}
         </div>
      </ThemeProvider>   
     );
