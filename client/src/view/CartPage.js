@@ -36,6 +36,21 @@ const theme = createTheme();
 //   margin: 5px 0px;
 //   cursor: pointer;
 // `;
+const HorizonLine = ({ text }) => {
+  return (
+    <div
+      style={{
+        width: "100%",
+        textAlign: "center",
+        borderBottom: "1px solid #aaa",
+        lineHeight: "0.1em",
+        margin: "10px 0 20px",
+      }}
+    >
+      <span style={{ background: "#fff", padding: "0 10px" }}>{text}</span>
+    </div>
+  );
+};
 
 function CartPage() {
     const [Cart, setCart] = useState([]);
@@ -129,7 +144,8 @@ function CartPage() {
         </Toolbar>
       </AppBar>
         <div>
-            <br></br>
+        <br></br><br></br> 
+        <HorizonLine text="담은 목록" />
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
@@ -170,11 +186,49 @@ function CartPage() {
               </Grid>
              :null ))}
           </Grid>
+          <br></br><br></br>
         </Container>
+        <HorizonLine text="추천 목록" />
         {/* 추천된 음식 출력 */}
+        <Container sx={{ py: 8 }} maxWidth="md">
+          <Grid container spacing={4}>
         {recommendList.map((food, id) => (
-          <h1 key={id}>{foodList[food].name}</h1>
-        ))}
+             <Grid item key={id} xs={12} sm={6} md={4}>
+               <Card
+                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+               >
+                 <CardMedia
+                   component="img"
+                   sx={{
+                     // 16:9
+                     pt: '56.25%',
+                   }}
+                   image={foodList[food].image}
+                 />
+                 <CardContent sx={{ flexGrow: 1 }}>
+                   <Typography gutterBottom variant="h5" component="h2">
+                     {/* 음식 이름 */}
+                     {foodList[food].name}
+                   </Typography>
+                   <Typography>
+                     {/* 레시피 간단한 설명 */}
+                     재료: {foodList[food].ingredient}
+                     <br></br>
+                     <br></br>
+                     칼로리: {foodList[food].kcal}
+                     영양 정보: 탄수화물 {foodList[food].carbohydrate}g, 
+                     단백질 {foodList[food].protein}g, 
+                     지방 {foodList[food].fat}g
+                   </Typography>
+                 </CardContent>
+                 <CardActions>
+                   <Button variant='outlined'>삭제</Button>
+                 </CardActions>
+               </Card>
+             </Grid>
+            ))}
+         </Grid>
+       </Container>
         </div>
      </ThemeProvider>   
     );
