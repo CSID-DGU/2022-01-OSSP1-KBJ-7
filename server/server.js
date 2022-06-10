@@ -47,6 +47,21 @@ app.get('/api/userCart/:id', (req, res) => {
     })
 })
 
+app.get('/api/userid', (req, res) => {
+    const id = req.params.id;
+
+    //db에서 user table의 id값을 가져오고 front로 전송
+
+    db.query(`select id from user`, (err, data) => {
+        if (!err) {
+            res.send(data);
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
 app.get('/api/userList', (req, res) => {
     const id = req.params.id;
 
