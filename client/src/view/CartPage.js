@@ -145,7 +145,7 @@ function CartPage() {
     const FoodFat = foodList.map((food, id) => food.fat);
 
     return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
@@ -163,7 +163,7 @@ function CartPage() {
       </AppBar>
         <div>
         <br></br><br></br> 
-        <HorizonLine text="담은 목록" />
+        <h2><HorizonLine text="담은 목록" /></h2>
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
@@ -188,13 +188,13 @@ function CartPage() {
                     </Typography>
                     <Typography>
                       {/* 레시피 간단한 설명 */}
-                      재료: { FoodIngredient[index - 1]}
+                      <h5>재료:</h5> { FoodIngredient[index - 1]}
+                      {/* <br></br>
                       <br></br>
-                      <br></br>
-                      칼로리: {FoodKcal[index - 1]}
-                      영양 정보: 탄수화물 {FoodCar[index - 1] }g, 
-                      단백질 {FoodPro[index - 1] }g, 
-                      지방 {FoodFat[index - 1] }g
+                      칼로리: {FoodKcal[index - 1]}kcal<br></br>
+                      탄수화물 {FoodCar[index - 1] }g<br></br>
+                      단백질 {FoodPro[index - 1] }g<br></br>
+                      지방 {FoodFat[index - 1] }g */}
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -206,7 +206,7 @@ function CartPage() {
           </Grid>
           <br></br><br></br>
         </Container>
-        <HorizonLine text="추천 목록" />
+        <h2><HorizonLine text="추천 목록" /></h2>
         {/* 추천된 음식 출력 */}
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
@@ -231,12 +231,12 @@ function CartPage() {
                    <Typography>
                      {/* 레시피 간단한 설명 */}
                      재료: {foodList[food].ingredient}
-                     <br></br>
+                     {/* <br></br>
                      <br></br>
                      칼로리: {foodList[food].kcal}
                      영양 정보: 탄수화물 {foodList[food].carbohydrate}g, 
                      단백질 {foodList[food].protein}g, 
-                     지방 {foodList[food].fat}g
+                     지방 {foodList[food].fat}g */}
                    </Typography>
                  </CardContent>
                  <CardActions>

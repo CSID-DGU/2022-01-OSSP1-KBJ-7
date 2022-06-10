@@ -1,4 +1,10 @@
 @font-face {
     font-family: "Jalnan";
-    src: url("./font/Jalnan.ttf");
+    src: url("../font/Jalnan.ttf") format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Jalnan';
 }

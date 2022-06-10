@@ -50,7 +50,7 @@ export default function RecipePage () {
       {foodList.filter(food => food.id === id).map(food => (
         <>
         
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <CssBaseline />
           <AppBar position="relative">
             <Toolbar>

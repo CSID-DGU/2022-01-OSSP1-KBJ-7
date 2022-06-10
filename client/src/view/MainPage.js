@@ -81,7 +81,7 @@ export default function MainPage(props) {
     }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
@@ -153,11 +153,11 @@ export default function MainPage(props) {
                     </Typography>
                     <Typography>
                       {/* 레시피 간단한 설명 */}
-                      재료: {food.ingredient}
-                      <br></br>
+                      <h5>재료:</h5> {food.ingredient}
+                      {/* <br></br>
                       <br></br>
                       칼로리: {food.kcal}
-                      영양 정보: 탄수화물 {food.carbohydrate}g, 단백질 {food.protein}g, 지방 {food.fat}g
+                      영양 정보: 탄수화물 {food.carbohydrate}g, 단백질 {food.protein}g, 지방 {food.fat}g */}
                     </Typography>
                   </CardContent>
                   <CardActions>
