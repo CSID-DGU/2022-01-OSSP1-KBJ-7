@@ -48,18 +48,18 @@ export default function MainPage(props) {
              로그인 유지에도 사용
       */
 
-      // localStorage에 foodList 없으면 db에서 받아옴
-      if(localStorage.getItem("foodList") == null) {
+      // sessionStorage에 foodList 없으면 db에서 받아옴
+      if(sessionStorage.getItem("foodList") == null) {
         axios.get('/api/foodList')
-        .then(res => setFoodList(res.data))
+        .then(res => {
+          setFoodList(res.data);
+          sessionStorage.setItem("foodList", JSON.stringify(res.data));
+        })
         .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
-
-        // session에 음식 정보 저장하여 랜더링 속도 향상
-        window.localStorage.setItem("foodList", JSON.stringify(foodList));
       }
-      // localStorage에 이미 foodList가 있다면 db로 요청보내지 않고 가지고 있는 foodList 그대로 사용
+      // sessionStorage에 이미 foodList가 있다면 db로 요청보내지 않고 가지고 있는 foodList 그대로 사용
       else {
-        setFoodList(JSON.parse(localStorage.getItem("foodList")));
+        setFoodList(JSON.parse(sessionStorage.getItem("foodList")));
       }
     }, [])
 
