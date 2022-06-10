@@ -30,6 +30,78 @@ app.get('/api/foodList', (req, res) => {
     })
 })
 
+app.get('/api/userCart/:id', (req, res) => {
+    const id = req.params.id;
+
+    // db에서 user_item table을 가져오고 front로 전송
+   
+    // user의 id를 이용해서 DB의 user_item table에서 데이터를 가져온다.
+    db.query(`select * from user_item where userid='${id}'`, (err, data) => {
+        if(!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
+app.get('/api/userList', (req, res) => {
+    const id = req.params.id;
+
+    // db에서 user_item table을 가져오고 front로 전송
+   
+    // user의 id를 이용해서 DB의 user_item table에서 데이터를 가져온다.
+    db.query(`select * from user_item`, (err, data) => {
+        if(!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
+// 장바구니에 추가
+app.get('/api/addCart/:userId/:name/:id', (req, res) => {
+    const userId = req.params.userId;
+    const name = decodeURIComponent(req.params.name);
+    const id = req.params.id;
+
+    foodName = name + "_" + id;
+
+    db.query(`UPDATE user_item SET ${foodName} = 1 WHERE (userid = '${userId}')`, (err, data) => {
+        if(!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
+// 장바구니에서 삭제
+app.get('/api/deleteCart/:userId/:name/:id', (req, res) => {
+    const userId = req.params.userId;
+    const name = decodeURIComponent(req.params.name);
+    const id = req.params.id;
+
+    foodName = name + "_" + id;
+
+    db.query(`UPDATE user_item SET ${foodName} = 0 WHERE (userid = '${userId}')`, (err, data) => {
+        if(!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
 const port = 5000; // server port
 app.listen(port, () => {
     console.log(`Server On: ${port}`);

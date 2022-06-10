@@ -9,20 +9,30 @@ import SignUp from "./view/RegisterPage";
 import SignIn from "./view/SigninPage";
 import CartPage from "./view/CartPage";
 import Recipe from "./view/RecipePage";
+import './App.css';
+import {createTheme, ThemeProvider} from "@mui/material";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Jalnan'
+  }
+})
 
 
 function App(){
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage />} > </Route>
-          <Route path="/Register" element={<SignUp />} > </Route>
-          <Route path="/Signin" element={<SignIn />} > </Route>
-          <Route path = "/Cart" element={<CartPage />} > </Route>
-          <Route path = "/Recipe/:id" element={<Recipe />} > </Route>
-        </Routes>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} > </Route>
+            <Route path="/Register" element={<SignUp />} > </Route>
+            <Route path="/Signin" element={<SignIn />} > </Route>
+            <Route path = "/Cart/:id" element={<CartPage />} > </Route>
+            <Route path = "/Recipe/:id" element={<Recipe />} > </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </div>
   );
 }
