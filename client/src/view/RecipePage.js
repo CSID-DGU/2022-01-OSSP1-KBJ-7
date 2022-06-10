@@ -30,6 +30,20 @@ export default function RecipePage () {
       .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
     }, [])
 
+    const addCart = (name, id) => {
+      let foodName = name.replace(/(\s*)/g, '') + "_" + id
+      console.log("add Cart: " + foodName);
+
+      // 특수문자(%) 제거
+      name = name.replace(/\%/g, '');
+      name = name.replace(/(\s*)/g, '')
+
+      // 이름/id로 get 요청
+      axios.get(`/api/addCart/${name}/${id}`)
+      .then(res => console.log(res.data))
+      .then(alert("장바구니에 추가하였습니다."))
+    }
+
     const theme = createTheme();
   return (
     <div>
@@ -87,7 +101,7 @@ export default function RecipePage () {
             </>
           ) : '해당 게시글을 찾을 수 없습니다.'}
           <Link to='/'><Button variant="contained">메인으로</Button></Link>
-          <Link to='/Cart/kaka5'><Button variant="outlined">장바구니</Button></Link>
+          <Button variant='outlined' onClick={() =>addCart(food.name, food.id)}>장바구니 추가</Button>
         </div></>
       ))}
     </div>

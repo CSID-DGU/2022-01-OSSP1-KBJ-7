@@ -117,6 +117,24 @@ function CartPage() {
         //.then(console.log('repeat'));
       }    
     });
+
+    // 장바구니에서 제거
+    const deleteCart = (name, foodId) => {
+      let foodName = name.replace(/(\s*)/g, '') + "_" + foodId
+      console.log("delete Cart: " + foodName);
+
+      // 특수문자(%) 제거
+      name = name.replace(/\%/g, '');
+      name = name.replace(/(\s*)/g, '')
+
+      // 이름/id로 get 요청
+      // 삭제 후 페이지 reload
+      axios.get(`/api/deleteCart/${id}/${name}/${foodId}`)
+      .then(res => console.log(res.data))
+      .then(alert("장바구니에서 삭제했습니다."))
+      .then(document.location.reload())
+    }
+
     const FoodId = foodList.map((food, id) => food.id); //카드 배열 위해 id 추가
     const FoodImage = foodList.map((food, id) => food.image);
     const FoodName = foodList.map((food, id) => food.name);
@@ -180,7 +198,7 @@ function CartPage() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button variant='outlined'>삭제</Button>
+                    <Button variant='outlined' onClick={() => deleteCart(FoodName[index - 1], FoodId[index - 1])}>삭제</Button>
                   </CardActions>
                 </Card>
               </Grid>

@@ -37,18 +37,48 @@ function Copyright() {
 
 const theme = createTheme();
 
-export default function MainPage() {
+export default function MainPage(props) {
   const [foodList, setFoodList] = useState([]);
 
     // 페이지 렌더링 후 가장 처음 호출되는 함수
     // 음식 리스트 얻어오기
     useEffect(()=>{
-      if(foodList.length === 0) {
+      // 세션 유지로 데이터 저장하여 rendering 속도 향상 (localStorage)
+      /*
+             로그인 유지에도 사용
+      */
+
+      // localStorage에 foodList 없으면 db에서 받아옴
+      if(localStorage.getItem("foodList") == null) {
         axios.get('/api/foodList')
         .then(res => setFoodList(res.data))
         .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
+
+        // session에 음식 정보 저장하여 랜더링 속도 향상
+        window.localStorage.setItem("foodList", JSON.stringify(foodList));
+      }
+      // localStorage에 이미 foodList가 있다면 db로 요청보내지 않고 가지고 있는 foodList 그대로 사용
+      else {
+        setFoodList(JSON.parse(localStorage.getItem("foodList")));
       }
     }, [])
+
+    // 장바구니에 추가하는 함수
+    // kaka5 유저에 대해 구현한 것
+    // 로그인 기능이 구현되면 변경 필요
+    const addCart = (name, foodId) => {
+      let foodName = name.replace(/(\s*)/g, '') + "_" + foodId
+      console.log("add Cart: " + foodName);
+
+      // 특수문자(%) 제거
+      name = name.replace(/\%/g, '');
+      name = name.replace(/(\s*)/g, '')
+
+      // 이름/id로 get 요청
+      axios.get(`/api/addCart/kaka5/${name}/${foodId}`)
+      .then(res => console.log(res.data))
+      .then(alert("장바구니에 추가하였습니다."))
+    }
 
   return (
     <ThemeProvider theme={theme}>
@@ -132,7 +162,7 @@ export default function MainPage() {
                   </CardContent>
                   <CardActions>
                     <Link to={`/Recipe/${food.id}`}><Button variant="contained">레시피</Button></Link>
-                    <Link to={`/Cart/${food.id}`}><Button variant="outlined">장바구니</Button></Link>
+                    <Button variant="outlined" onClick={() =>addCart(food.name, food.id)}>장바구니 추가</Button>
                   </CardActions>
                 </Card>
               </Grid>

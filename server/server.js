@@ -64,6 +64,44 @@ app.get('/api/userList', (req, res) => {
     })
 })
 
+// 장바구니에 추가
+app.get('/api/addCart/:userId/:name/:id', (req, res) => {
+    const userId = req.params.userId;
+    const name = decodeURIComponent(req.params.name);
+    const id = req.params.id;
+
+    foodName = name + "_" + id;
+
+    db.query(`UPDATE user_item SET ${foodName} = 1 WHERE (userid = '${userId}')`, (err, data) => {
+        if(!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
+// 장바구니에서 삭제
+app.get('/api/deleteCart/:userId/:name/:id', (req, res) => {
+    const userId = req.params.userId;
+    const name = decodeURIComponent(req.params.name);
+    const id = req.params.id;
+
+    foodName = name + "_" + id;
+
+    db.query(`UPDATE user_item SET ${foodName} = 0 WHERE (userid = '${userId}')`, (err, data) => {
+        if(!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
 const port = 5000; // server port
 app.listen(port, () => {
     console.log(`Server On: ${port}`);
