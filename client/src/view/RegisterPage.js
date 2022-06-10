@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import axios from 'axios';
+import { useState, useEffect, useLayoutEffect } from 'react';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -28,7 +31,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function RegisterPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -36,7 +39,46 @@ export default function SignUp() {
       id: data.get('id'),
       password: data.get('password'),
     });
-  };
+    };
+
+    const [user, setUser] = useState([]);
+    const [userList, setUserList] = useState([]);
+    const [start, setStart] = useState(1);
+
+    useEffect(() => {
+        if (start) {
+            axios.get('/api/userId')
+                .then(res => {
+                    setUser(res.data);
+
+                    if (user.length !== 0 && userList.length === 0) {
+                        // 사용자 배열 구축
+                        // userList = ['kaka5', 'test', 'test1', ...]
+                        user.map((user, id) => userList.push(Object.values(user)))
+
+                        console.log(user);
+
+                        setStart(0);
+                    }
+                })
+            //.then(console.log('repeat'));
+        }
+    });
+
+    // 회원가입 버튼 클릭시
+    const register = () => { } /*= (name, foodId) => {
+        let foodName = name.replace(/(\s*)/g, '') + "_" + foodId
+        console.log("add Cart: " + foodName);
+
+        // 특수문자(%) 제거
+        name = name.replace(/\%/g, '');
+        name = name.replace(/(\s*)/g, '')
+
+        // 이름/id로 get 요청
+        axios.get(`/api/addCart/kaka5/${name}/${foodId}`)
+            .then(res => console.log(res.data))
+            .then(alert("장바구니에 추가하였습니다."))
+    }*/
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,12 +121,7 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+                      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => register}>
               회원가입
             </Button>
             <Grid container justifyContent="flex-end">
