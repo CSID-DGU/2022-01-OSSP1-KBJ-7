@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import '../component/Link_line.css'
 //import Link from '@mui/material/Link';
 import {Link} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -36,19 +37,51 @@ function Copyright() {
 
 const theme = createTheme();
 
-export default function MainPage() {
+export default function MainPage(props) {
   const [foodList, setFoodList] = useState([]);
 
     // 페이지 렌더링 후 가장 처음 호출되는 함수
     // 음식 리스트 얻어오기
     useEffect(()=>{
-      axios.get('/api/foodList')
-      .then(res => setFoodList(res.data))
-      .then(console.log(foodList)) //  받아온 음식리스트 출력해보기
+      // 세션 유지로 데이터 저장하여 rendering 속도 향상 (localStorage)
+      /*
+             로그인 유지에도 사용
+      */
+      sessionStorage.removeItem("foodList");
+      // sessionStorage에 foodList 없으면 db에서 받아옴
+      if(sessionStorage.getItem("foodList") == null) {
+        axios.get('/api/foodList')
+        .then(res => {
+          setFoodList(res.data);
+          sessionStorage.setItem("foodList", JSON.stringify(res.data));
+        })
+        .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
+      }
+      // sessionStorage에 이미 foodList가 있다면 db로 요청보내지 않고 가지고 있는 foodList 그대로 사용
+      else {
+        setFoodList(JSON.parse(sessionStorage.getItem("foodList")));
+      }
     }, [])
 
+    // 장바구니에 추가하는 함수
+    // kaka5 유저에 대해 구현한 것
+    // 로그인 기능이 구현되면 변경 필요
+    const addCart = (name, foodId) => {
+      let foodName = name.replace(/(\s*)/g, '') + "_" + foodId
+      console.log("add Cart: " + foodName);
+
+      // 특수문자(%) 제거
+      name = name.replace(/\%/g, '');
+      name = name.replace(/(\s*)/g, '')
+
+      // 이름/id로 get 요청
+      axios.get(`/api/addCart/kaka5/${name}/${foodId}`)
+      .then(res => console.log(res.data))
+      .then(alert("장바구니에 추가하였습니다."))
+    }
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
@@ -59,9 +92,9 @@ export default function MainPage() {
         </Toolbar>
         <Toolbar>
           {/* 링크 수정 */}
-          <Link to='/Signin'><button>로그인</button></Link>
-          <Link to='/Register'><button>회원가입</button></Link>       
-          <Link to='/Cart'><button>장바구니</button></Link>        
+          <Link to='/Signin'><Button variant='contained'>로그인</Button></Link>
+          <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>       
+          <Link to='/Cart/kaka5'><Button variant='contained'>장바구니</Button></Link> {/* kaka5 유저에 대해 테스트 */}
         </Toolbar>
       </AppBar>
       <main>
@@ -94,8 +127,6 @@ export default function MainPage() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
             </Stack>
           </Container>
         </Box>
@@ -122,16 +153,16 @@ export default function MainPage() {
                     </Typography>
                     <Typography>
                       {/* 레시피 간단한 설명 */}
-                      재료: {food.ingredient}
-                      <br></br>
+                      <h5>재료:</h5> {food.ingredient}
+                      {/* <br></br>
                       <br></br>
                       칼로리: {food.kcal}
-                      영양 정보: 탄수화물 {food.carbohydrate}g, 단백질 {food.protein}g, 지방 {food.fat}g
+                      영양 정보: 탄수화물 {food.carbohydrate}g, 단백질 {food.protein}g, 지방 {food.fat}g */}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Link to={`/Recipe/${food.id}`}><Button size="small">레시피</Button></Link>
-                    <Button size="small">장바구니</Button>
+                    <Link to={`/Recipe/${food.id}`}><Button variant="contained">레시피</Button></Link>
+                    <Button variant="outlined" onClick={() =>addCart(food.name, food.id)}>장바구니 추가</Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -142,7 +173,7 @@ export default function MainPage() {
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          Healthy Pleasure
         </Typography>
         <Typography
           variant="subtitle1"
@@ -150,7 +181,7 @@ export default function MainPage() {
           color="text.secondary"
           component="p"
         >
-          Something here to give the footer a purpose!
+          행복한 식사 시간을 즐기세요.
         </Typography>
         <Copyright />
       </Box>

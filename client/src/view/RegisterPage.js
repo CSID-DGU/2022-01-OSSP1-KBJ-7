@@ -89,7 +89,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="./SigninPage.js" variant="body2">
+                <Link href="./Signin" variant="body2">
                   이미 회원가입이 되어있다면 로그인하세요.
                 </Link>
               </Grid>
