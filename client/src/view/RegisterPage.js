@@ -52,8 +52,6 @@ export default function RegisterPage() {
             password: data.get('password'),
         });
 
-        /*console.log(reg_id);
-        console.log(reg_pw);*/
         let temp = 0;
 
         for (i = 0; i < userList.length; i++) {
@@ -80,14 +78,12 @@ export default function RegisterPage() {
                 .then(res => console.log(res.data))
                 .then(alert("회원가입이 완료되었습니다."))
 
-            axios.get(`/api/userItem`)
+            axios.get(`/api/registeritem/${reg_id}`)
+                .then(res => console.log(res.data))
+                .then(console.log("회원가입이 완료되었습니다."))
+
         }
         
-            /*axios.get(`/api/userId/${reg_id}/${reg_pw}`)
-                .then(res => {
-                    setUser(res.data);
-                })
-                .then(alert("회원가입이 완료되었습니다."))*/
         console.log(temp);
         temp = 0;
     };
@@ -111,30 +107,6 @@ export default function RegisterPage() {
             //.then(console.log('repeat'));
         }
     });
-
-    // 회원가입 버튼 클릭시
-    /*const register = () => {
-        let reg_id = data.get('id');
-        let reg_password = data.get('password');
-
-        console.log(reg_id);
-        console.log(reg_password);
-
-
-
-    }*/ /*= (name, foodId) => {
-        let foodName = name.replace(/(\s*)/g, '') + "_" + foodId
-        console.log("add Cart: " + foodName);
-
-        // 특수문자(%) 제거
-        name = name.replace(/\%/g, '');
-        name = name.replace(/(\s*)/g, '')
-
-        // 이름/id로 get 요청
-        axios.get(`/api/addCart/kaka5/${name}/${foodId}`)
-            .then(res => console.log(res.data))
-            .then(alert("장바구니에 추가하였습니다."))
-    }*/
 
   return (
     <ThemeProvider theme={theme}>

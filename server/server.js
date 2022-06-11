@@ -60,6 +60,7 @@ app.get('/api/userId', (req, res) => {
     })
 })
 
+//user table에 새 ID 추가
 app.get('/api/register/:reg_id/:reg_pw', (req, res) => {
     const reg_id = req.params.reg_id;
     const reg_pw = req.params.reg_pw;
@@ -76,10 +77,11 @@ app.get('/api/register/:reg_id/:reg_pw', (req, res) => {
 
 })
 
-app.get('api/registeritem/:user_id', (req, res) => {
+//user_item table에 새 ID 추가
+app.get('/api/registeritem/:reg_id', (req, res) => {
     const reg_id = req.params.reg_id;
 
-    db.query(`INSERT user_item (userid) VALUES ('${user_id}')`, (err, data) => {
+    db.query(`INSERT user_item (userid) VALUES ('${reg_id}')`, (err, data) => {
         if (!err) {
             res.send(data);
 
