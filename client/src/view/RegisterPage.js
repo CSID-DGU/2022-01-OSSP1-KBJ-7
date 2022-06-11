@@ -32,18 +32,64 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function RegisterPage() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      id: data.get('id'),
-      password: data.get('password'),
-    });
-    };
-
     const [user, setUser] = useState([]);
     const [userList, setUserList] = useState([]);
     const [start, setStart] = useState(1);
+
+    let reg_id;
+    let reg_pw;
+    let i = 0;
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+
+        reg_id = data.get('id');
+        reg_pw = data.get('password');
+
+        console.log({
+            id: data.get('id'),
+            password: data.get('password'),
+        });
+
+        /*console.log(reg_id);
+        console.log(reg_pw);*/
+        let temp = 0;
+
+        for (i = 0; i < userList.length; i++) {
+            if (userList[i] == reg_id) {
+                temp = 1;
+            }
+        }
+
+        
+        if (temp == 1) {
+            //이미 존재하는 아이디일경우
+            console.log(alert("이미 존재하는 아이디입니다."))
+
+        } else if (reg_id == "") {
+            //아이디 입력란에 입력하지 않았을 경우
+            console.log(alert("아이디가 입력되지 않았습니다."))
+
+        } else if (reg_pw == "") {
+            //비밀번호 입력란에 입력하지 않았을 경우
+            console.log(alert("비밀번호가 입력되지 않았습니다."))
+
+        } else {
+
+            axios.get(`/api/register/${reg_id}/${reg_pw}`)
+                .then(res => console.log(res.data))
+                .then(alert("회원가입이 완료되었습니다."))
+        }
+        
+            /*axios.get(`/api/userId/${reg_id}/${reg_pw}`)
+                .then(res => {
+                    setUser(res.data);
+                })
+                .then(alert("회원가입이 완료되었습니다."))*/
+        console.log(temp);
+        temp = 0;
+    };
 
     useEffect(() => {
         if (start) {
@@ -56,7 +102,7 @@ export default function RegisterPage() {
                         // userList = ['kaka5', 'test', 'test1', ...]
                         user.map((user, id) => userList.push(Object.values(user)))
 
-                        console.log(user);
+                        console.log(userList);
 
                         setStart(0);
                     }
@@ -66,7 +112,16 @@ export default function RegisterPage() {
     });
 
     // 회원가입 버튼 클릭시
-    const register = () => { } /*= (name, foodId) => {
+    /*const register = () => {
+        let reg_id = data.get('id');
+        let reg_password = data.get('password');
+
+        console.log(reg_id);
+        console.log(reg_password);
+
+
+
+    }*/ /*= (name, foodId) => {
         let foodName = name.replace(/(\s*)/g, '') + "_" + foodId
         console.log("add Cart: " + foodName);
 
@@ -99,29 +154,16 @@ export default function RegisterPage() {
             회원가입
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="id"
-                  label="아이디"
-                  name="id"
-                />
+                      <Grid container spacing={2}>
+                          <Grid item xs={12}>
+                              <TextField required fullWidth id="id" label="아이디" name="id"/>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
+                <TextField required fullWidth name="password" label="Password" type="password" id="password"
+                 autoComplete="new-password"/>
               </Grid>
             </Grid>
-                      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => register}>
+                      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} >
               회원가입
             </Button>
             <Grid container justifyContent="flex-end">
