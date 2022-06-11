@@ -86,6 +86,13 @@ export default function MainPage(props) {
       .then(alert("장바구니에 추가하였습니다."))
     }
 
+    // 로그아웃 동작
+    const logOut = () => {
+      // userId 지우고 reload
+      sessionStorage.removeItem('userId');
+      document.location.reload();
+    }
+
   return (
     <ThemeProvider>
       <CssBaseline />
@@ -105,6 +112,7 @@ export default function MainPage(props) {
           {userId == null ? <Link to='/Signin'><Button variant='contained'>로그인</Button></Link> : <div><h4>반갑습니다. {userId}님 </h4></div>}
           <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>       
           <Link to={`/Cart/${userId}`}><Button variant='contained'>장바구니</Button></Link>
+          {userId != null ? <Button variant='contained' onClick={() => logOut()}>로그아웃</Button> : <div></div>}
         </Toolbar>
       </AppBar>
       <main>
@@ -172,7 +180,7 @@ export default function MainPage(props) {
                   </CardContent>
                   <CardActions>
                     <Link to={`/Recipe/${food.id}`}><Button variant="contained">레시피</Button></Link>
-                    <Button variant="outlined" onClick={() =>addCart(food.name, food.id)}>장바구니 추가</Button>
+                    <Button variant="outlined" onClick={() => addCart(food.name, food.id)}>장바구니 추가</Button>
                   </CardActions>
                 </Card>
               </Grid>

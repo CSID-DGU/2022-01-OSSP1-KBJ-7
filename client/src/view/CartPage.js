@@ -141,6 +141,13 @@ function CartPage() {
       .then(document.location.reload())
     }
 
+    // 로그아웃 동작
+    const logOut = () => {
+      // userId 지우고 main 페이지로
+      sessionStorage.removeItem('userId');
+      document.location.replace('/');
+    }
+
     const FoodId = foodList.map((food, id) => food.id); //카드 배열 위해 id 추가
     const FoodImage = foodList.map((food, id) => food.image);
     const FoodName = foodList.map((food, id) => food.name);
@@ -163,8 +170,8 @@ function CartPage() {
         <Toolbar>
           <Link to='/'><Button variant='contained'>메인으로</Button></Link>
           {userId == null ? <Link to='/Signin'><Button variant='contained'>로그인</Button></Link> : <div><h4>반갑습니다. {userId}님 </h4></div>}
-          <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>       
-          <Link to='/Cart/kaka5'><Button variant='contained'>장바구니</Button></Link> {/* kaka5 유저에 대해 테스트 */}
+          <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>
+          {userId != null ? <Button variant='contained' onClick={() => logOut()}>로그아웃</Button> : <div></div>}
         </Toolbar>
       </AppBar>
         <div>
