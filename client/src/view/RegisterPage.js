@@ -76,10 +76,11 @@ export default function RegisterPage() {
             console.log(alert("비밀번호가 입력되지 않았습니다."))
 
         } else {
-
             axios.get(`/api/register/${reg_id}/${reg_pw}`)
                 .then(res => console.log(res.data))
                 .then(alert("회원가입이 완료되었습니다."))
+
+            axios.get(`/api/userItem`)
         }
         
             /*axios.get(`/api/userId/${reg_id}/${reg_pw}`)

@@ -76,6 +76,20 @@ app.get('/api/register/:reg_id/:reg_pw', (req, res) => {
 
 })
 
+app.get('api/registeritem/:user_id', (req, res) => {
+    const reg_id = req.params.reg_id;
+
+    db.query(`INSERT user_item (userid) VALUES ('${user_id}')`, (err, data) => {
+        if (!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
 app.get('/api/userList', (req, res) => {
 
     // db에서 user_item table을 가져오고 front로 전송
