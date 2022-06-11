@@ -33,10 +33,10 @@ export default function SigninPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const inputData = new FormData(event.currentTarget);
-    console.log({
-      id: inputData.get('id'),
-      password: inputData.get('password')
-    });
+    // console.log({
+    //   id: inputData.get('id'),
+    //   password: inputData.get('password')
+    // });
 
     axios.post('/api/signin', null, {
       params: {
