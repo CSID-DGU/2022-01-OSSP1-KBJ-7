@@ -39,6 +39,7 @@ const theme = createTheme();
 
 export default function MainPage(props) {
   const [foodList, setFoodList] = useState([]);
+  const [userId, setUserId] = useState('');
 
     // 페이지 렌더링 후 가장 처음 호출되는 함수
     // 음식 리스트 얻어오기
@@ -47,6 +48,10 @@ export default function MainPage(props) {
       /*
              로그인 유지에도 사용
       */
+
+      // userId session에서 찾아옴
+      setUserId(sessionStorage.getItem('userId'));
+
       //sessionStorage.removeItem("foodList");
       // sessionStorage에 foodList 없으면 db에서 받아옴
       if(sessionStorage.getItem("foodList") == null) {
@@ -66,6 +71,7 @@ export default function MainPage(props) {
     // 장바구니에 추가하는 함수
     // kaka5 유저에 대해 구현한 것
     // 로그인 기능이 구현되면 변경 필요
+    // ==> 변경 완료
     const addCart = (name, foodId) => {
       let foodName = name.replace(/(\s*)/g, '') + "_" + foodId
       console.log("add Cart: " + foodName);
@@ -75,7 +81,7 @@ export default function MainPage(props) {
       name = name.replace(/(\s*)/g, '')
 
       // 이름/id로 get 요청
-      axios.get(`/api/addCart/kaka5/${name}/${foodId}`)
+      axios.get(`/api/addCart/${userId}/${name}/${foodId}`)
       .then(res => console.log(res.data))
       .then(alert("장바구니에 추가하였습니다."))
     }
@@ -92,9 +98,13 @@ export default function MainPage(props) {
         </Toolbar>
         <Toolbar>
           {/* 링크 수정 */}
-          <Link to='/Signin'><Button variant='contained'>로그인</Button></Link>
+          {/* 
+              로그인 안되어 있으면 로그인 버튼 표시
+              되어 있으면 유저 id(이름) 출력
+          */}
+          {userId == null ? <Link to='/Signin'><Button variant='contained'>로그인</Button></Link> : <div><h4>반갑습니다. {userId}님 </h4></div>}
           <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>       
-          <Link to='/Cart/kaka5'><Button variant='contained'>장바구니</Button></Link> {/* kaka5 유저에 대해 테스트 */}
+          <Link to={`/Cart/${userId}`}><Button variant='contained'>장바구니</Button></Link>
         </Toolbar>
       </AppBar>
       <main>

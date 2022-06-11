@@ -146,6 +146,20 @@ app.get('/api/deleteCart/:userId/:name/:id', (req, res) => {
     })
 })
 
+app.post('/api/signin', (req, res) => {
+    const userId = req.query.userId;
+
+    db.query(`select * from new_schema.user where id='${userId}'`, (err, data) => {
+        if(!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
 const port = 5000; // server port
 app.listen(port, () => {
     console.log(`Server On: ${port}`);
