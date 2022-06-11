@@ -107,8 +107,10 @@ function CartPage() {
             // 5개의 음식 추천(5번 반복문 반복)
             for(let i = 0; i < 5; i++) {
               let item = recommend.cFilter(userList, userIndex)[0];
-              recommendList.push(item);
-              userList[userIndex][item] = 1;
+              if(item != -1) {
+                recommendList.push(item);
+                userList[userIndex][item] = 1;
+              }                
             }
             console.log(recommendList);
             setStart(0);

@@ -47,7 +47,7 @@ export default function MainPage(props) {
       /*
              로그인 유지에도 사용
       */
-      sessionStorage.removeItem("foodList");
+      //sessionStorage.removeItem("foodList");
       // sessionStorage에 foodList 없으면 db에서 받아옴
       if(sessionStorage.getItem("foodList") == null) {
         axios.get('/api/foodList')
