@@ -21,7 +21,7 @@ import styled from 'styled-components';
 
 
 import axios from 'axios';
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import recommend from 'collaborative-filter';
