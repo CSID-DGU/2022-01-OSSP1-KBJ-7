@@ -47,8 +47,52 @@ app.get('/api/userCart/:id', (req, res) => {
     })
 })
 
+app.get('/api/userId', (req, res) => {
+    //db에서 user table의 id값을 가져오고 front로 전송
+
+    db.query(`select id from user`, (err, data) => {
+        if (!err) {
+            res.send(data);
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
+//user table에 새 ID 추가
+app.get('/api/register/:reg_id/:reg_pw', (req, res) => {
+    const reg_id = req.params.reg_id;
+    const reg_pw = req.params.reg_pw;
+
+    db.query(`INSERT user VALUES ('${reg_id}','${reg_pw}')`, (err, data) => {
+        if (!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+
+})
+
+//user_item table에 새 ID 추가
+app.get('/api/registeritem/:reg_id', (req, res) => {
+    const reg_id = req.params.reg_id;
+
+    db.query(`INSERT user_item (userid) VALUES ('${reg_id}')`, (err, data) => {
+        if (!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
 app.get('/api/userList', (req, res) => {
-    const id = req.params.id;
 
     // db에서 user_item table을 가져오고 front로 전송
    
@@ -92,6 +136,20 @@ app.get('/api/deleteCart/:userId/:name/:id', (req, res) => {
     foodName = name + "_" + id;
 
     db.query(`UPDATE user_item SET ${foodName} = 0 WHERE (userid = '${userId}')`, (err, data) => {
+        if(!err) {
+            res.send(data);
+
+        } else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
+
+app.post('/api/signin', (req, res) => {
+    const userId = req.query.userId;
+
+    db.query(`select * from new_schema.user where id='${userId}'`, (err, data) => {
         if(!err) {
             res.send(data);
 

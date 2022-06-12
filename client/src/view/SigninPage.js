@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -31,11 +32,33 @@ const theme = createTheme();
 export default function SigninPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      id: data.get('id'),
-      password: data.get('password')
-    });
+    const inputData = new FormData(event.currentTarget);
+    // console.log({
+    //   id: inputData.get('id'),
+    //   password: inputData.get('password')
+    // });
+
+    axios.post('/api/signin', null, {
+      params: {
+        'userId': inputData.get('id'),
+      }
+    })
+    .then(res => {
+      if((res.data)[0].password == inputData.get('password')) {
+        console.log("Login success");
+        window.alert("로그인 성공");
+
+        // session에 로그인 정보 저장
+        sessionStorage.setItem('userId', inputData.get('id'));
+
+        // main페이지로 이동
+        document.location.replace('/');
+      }
+      else {
+        console.log("Wrong input");
+        window.alert("로그인 실패");
+      }
+    })
   };
 
   return (

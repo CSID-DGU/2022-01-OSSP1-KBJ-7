@@ -21,7 +21,7 @@ import styled from 'styled-components';
 
 
 import axios from 'axios';
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import recommend from 'collaborative-filter';
@@ -61,7 +61,8 @@ function CartPage() {
     const [recommendList, setRecommendList] = useState([]); // 추천된 아이템(음식)을 모은 배열
     const params = useParams();
     const id = (params.id);
-    const [start, setStart] = useState(1); // 시작할때만 정보 얻어오도록 한다. (속도 향상) 나중에 commit
+    const [start, setStart] = useState(1); // 시작할때만 정보 얻어오도록 한다. (속도 향상) 
+    const [userId, setUserId] = useState(''); // userId
     // user id는 kaka5, crete91, ... 등등 DB의 user_item table을 확인해 알 수 있다.
     // user id를 parameter로 얻어와 해당 id에 맞는 유저가 담은 음식 데이터를 가져옴
 
@@ -70,6 +71,9 @@ function CartPage() {
     // ex) kaka5의 경우 1, 3번 음식이 1이니까 1, 3번 음식 나타내기
     // 음식 name, ingredient, kcal, 영양
     useEffect(() => {
+      // userId session에서 가져옴
+      setUserId(sessionStorage.getItem('userId'));
+
       if(start) {
         axios.get(`/api/userCart/${id}`)
         .then(res => {
@@ -107,8 +111,10 @@ function CartPage() {
             // 5개의 음식 추천(5번 반복문 반복)
             for(let i = 0; i < 5; i++) {
               let item = recommend.cFilter(userList, userIndex)[0];
-              recommendList.push(item);
-              userList[userIndex][item] = 1;
+              if(item != -1) {
+                recommendList.push(item);
+                userList[userIndex][item] = 1;
+              }                
             }
             console.log(recommendList);
             setStart(0);
@@ -135,6 +141,13 @@ function CartPage() {
       .then(document.location.reload())
     }
 
+    // 로그아웃 동작
+    const logOut = () => {
+      // userId 지우고 main 페이지로
+      sessionStorage.removeItem('userId');
+      document.location.replace('/');
+    }
+
     const FoodId = foodList.map((food, id) => food.id); //카드 배열 위해 id 추가
     const FoodImage = foodList.map((food, id) => food.image);
     const FoodName = foodList.map((food, id) => food.name);
@@ -156,9 +169,9 @@ function CartPage() {
         </Toolbar>
         <Toolbar>
           <Link to='/'><Button variant='contained'>메인으로</Button></Link>
-          <Link to='/Signin'><Button variant='contained'>로그인</Button></Link>
-          <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>       
-          <Link to='/Cart/kaka5'><Button variant='contained'>장바구니</Button></Link> {/* kaka5 유저에 대해 테스트 */}
+          {userId == null ? <Link to='/Signin'><Button variant='contained'>로그인</Button></Link> : <div><h4>반갑습니다. {userId}님 </h4></div>}
+          <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>
+          {userId != null ? <Button variant='contained' onClick={() => logOut()}>로그아웃</Button> : <div></div>}
         </Toolbar>
       </AppBar>
         <div>

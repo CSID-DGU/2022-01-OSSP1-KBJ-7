@@ -1,15 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Table, Button } from "react-bootstrap";
-import { BrowserRouter, Route, Switch, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainPage from "./view/MainPage"
 import SignUp from "./view/RegisterPage";
 import SignIn from "./view/SigninPage";
 import CartPage from "./view/CartPage";
 import Recipe from "./view/RecipePage";
-import './App.css';
 import {createTheme, ThemeProvider} from "@mui/material";
 
 const theme = createTheme({
