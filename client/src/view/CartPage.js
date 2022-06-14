@@ -168,8 +168,8 @@ function CartPage() {
           </Typography>
         </Toolbar>
         <Toolbar>
-          <Link to='/'><Button variant='contained'>메인으로</Button></Link>
           {userId == null ? <Link to='/Signin'><Button variant='contained'>로그인</Button></Link> : <div><h4>반갑습니다. {userId}님 </h4></div>}
+          <Link to='/'><Button variant='contained'>메인으로</Button></Link>
           <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>
           {userId != null ? <Button variant='contained' onClick={() => logOut()}>로그아웃</Button> : <div></div>}
         </Toolbar>
