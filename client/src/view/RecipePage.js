@@ -19,18 +19,22 @@ import { Link } from 'react-router-dom';
 
 export default function RecipePage () {
   const [foodList, setFoodList] = useState([]);
+  const [userId, setUserId] = useState('');
   const params = useParams();
   const id = parseInt(params.id);
 
     // 페이지 렌더링 후 가장 처음 호출되는 함수
     // 음식 리스트 얻어오기
     useEffect(()=>{
+      // userId session에서 찾아옴
+      setUserId(sessionStorage.getItem('userId'));
+
       axios.get('/api/foodList')
       .then(res => setFoodList(res.data)) 
       .then(console.log(foodList)) // 받아온 음식리스트 출력해보기
     }, [])
 
-    const addCart = (name, id) => {
+    const addCart = (name, foodId) => {
       let foodName = name.replace(/(\s*)/g, '') + "_" + id
       console.log("add Cart: " + foodName);
 
@@ -39,9 +43,17 @@ export default function RecipePage () {
       name = name.replace(/(\s*)/g, '')
 
       // 이름/id로 get 요청
-      axios.get(`/api/addCart/${name}/${id}`)
+      // 이름/id로 get 요청
+      axios.get(`/api/addCart/${userId}/${name}/${foodId}`)
       .then(res => console.log(res.data))
       .then(alert("장바구니에 추가하였습니다."))
+    }
+
+    // 로그아웃 동작
+    const logOut = () => {
+      // userId 지우고 reload
+      sessionStorage.removeItem('userId');
+      document.location.reload();
     }
 
     const theme = createTheme();
@@ -61,10 +73,11 @@ export default function RecipePage () {
             </Toolbar>
             <Toolbar>
               {/* 링크 수정 */}
+              {userId == null ? <Link to='/Signin'><Button variant='contained'>로그인</Button></Link> : <div><h4>반갑습니다. {userId}님 </h4></div>}
               <Link to='/'><Button variant='contained'>메인으로</Button></Link>
-              <Link to='/Signin'><Button variant='contained'>로그인</Button></Link>
               <Link to='/Register'><Button variant='contained'>회원가입</Button></Link>       
-              <Link to='/Cart/kaka5'><Button variant='contained'>장바구니</Button></Link> {/* kaka5 유저에 대해 테스트 */}
+              <Link to={`/Cart/${userId}`}><Button variant='contained'>장바구니</Button></Link>
+              {userId != null ? <Button variant='contained' onClick={() => logOut()}>로그아웃</Button> : <div></div>}
             </Toolbar>
           </AppBar>
         </ThemeProvider>
