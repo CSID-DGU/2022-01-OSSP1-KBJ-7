@@ -7,6 +7,7 @@ import SignIn from "./view/SigninPage";
 import CartPage from "./view/CartPage";
 import Recipe from "./view/RecipePage";
 import {createTheme, ThemeProvider} from "@mui/material";
+import './App.css';
 
 const theme = createTheme({
   typography: {
