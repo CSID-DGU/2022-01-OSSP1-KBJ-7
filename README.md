@@ -1,3 +1,8 @@
+# 주제
+협업 필터링을 통한 사용자에게 알맞은 헬시 플레저 음식을 추천하는 서비스
+<br />
+<br />
+
 # 시작방법
 
 * yarn upgrade -> yarn install -> project최상위 directory에서 -> yarn start
