@@ -19,7 +19,6 @@ import { useState, useEffect, useLayoutEffect } from 'react';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
         Healthy Pleasure Site
       </Link>{' '}
